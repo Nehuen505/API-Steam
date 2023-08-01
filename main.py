@@ -36,6 +36,6 @@ def genero(Año:str):
     top_5_genres = genre_counts.head(5).index.tolist()
 
     # Agregar un salto de línea después de cada género en la lista
-    top_5_genres_str = '\n'.join(top_5_genres)
+    top_5_genres_str = ' '.join(top_5_genres)
 
     return top_5_genres_str
