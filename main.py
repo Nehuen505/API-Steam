@@ -14,7 +14,8 @@ df = pd.DataFrame(rows)
 
 @app.on_event("startup")
 async def startup_event():
-    # Código adicional de inicialización, si es necesario
+    # Convertir la columna "release_date" al tipo datetime
+    df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
     pass
 
 @app.get('/')
