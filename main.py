@@ -80,6 +80,9 @@ def earlyacces(Año:str):
     # Filtrar solo los registros correspondientes al año ingresado
     df_filtered = df[df['release_date'].dt.year == int(Año)]
     
+    # Eliminar los valores nulos en la columna "early_access"
+    df_filtered = df_filtered.dropna(subset=['early_access'])
+    
     # Contar la cantidad de juegos con early access
     cantidad_early_access = df_filtered['early_access'].sum()
     
