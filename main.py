@@ -36,7 +36,7 @@ def genero(Año: str):
     top_5_genres = genre_counts.head(5).index.tolist()
 
     # Convertir la lista de géneros en una cadena con saltos de línea
-    top_5_genres_str = ' '.join(top_5_genres)
+    top_5_genres_str = ', '.join(top_5_genres)
 
     return top_5_genres_str
 
@@ -71,11 +71,11 @@ def specs(Año:str):
     top_5_specs = specs_counts.head(5).index.tolist()
 
     # Convertir la lista de géneros en una cadena con saltos de línea
-    top_5_specs_str = ' '.join(top_5_specs)
+    top_5_specs_str = ', '.join(top_5_specs)
     
     return top_5_specs_str
 
-@app.get('/earltaccess')
+@app.get('/earlyaccess')
 def earlyacces(Año:str):
     # Filtrar solo los registros correspondientes al año ingresado
     df_filtered = df[df['release_date'].dt.year == int(Año)]
