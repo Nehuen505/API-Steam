@@ -116,12 +116,15 @@ def metascore(Año: str):
     df_filtered = df[df['release_date'].dt.year == int(Año)]
     
     # Eliminar los valores nulos en la columna "metascore"
-    df_filtered = df_filtered['metascore'].dropna()
+    df_filtered = df_filtered.dropna(subset=['metascore'])
     
     # Ordenar el DataFrame por la columna "metascore" de forma descendente para obtener los mejores puntajes primero
-    df_sorted = df_filtered.sort_values(ascending=False)
+    df_sorted = df_filtered.sort_values(by='metascore', ascending=False)
     
     # Tomar los primeros 5 juegos con mayor metascore
     top_5_games = df_sorted.head(5)
     
-    return top_5_games
+    # Obtener la lista de nombres de los juegos y sus puntajes de metascore como una lista de tuplas
+    juegos_y_metascore = [(nombre, puntaje) for nombre, puntaje in zip(top_5_games['title'], top_5_games['metascore'])]
+    
+    return juegos_y_metascore
