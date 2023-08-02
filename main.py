@@ -15,7 +15,7 @@ async def startup_event():
     df.drop('Unnamed: 0', axis=1,inplace=True)
     pass
 
-@app.get('/')
+@app.get('/genero')
 def genero(Año: str):
     # Filtrar solo los registros correspondientes al año ingresado
     df_filtered = df[df['release_date'].dt.year == int(Año)]
@@ -36,11 +36,11 @@ def genero(Año: str):
     top_5_genres = genre_counts.head(5).index.tolist()
 
     # Convertir la lista de géneros en una cadena con saltos de línea
-    top_5_genres_str = '\n'.join(top_5_genres)
+    top_5_genres_str = ' '.join(top_5_genres)
 
     return top_5_genres_str
 
-@app.get('/')
+@app.get('/juegos')
 def juegos(Año:str):
     # Filtrar solo los registros correspondientes al año ingresado
     df_filtered = df[df['release_date'].dt.year == int(Año)]
@@ -50,7 +50,7 @@ def juegos(Año:str):
 
     return df_filtered['app_name']
 
-@app.get('/')
+@app.get('/specs')
 def specs(Año:str):
     # Filtrar solo los registros correspondientes al año ingresado
     df_filtered = df[df['release_date'].dt.year == int(Año)]
@@ -71,11 +71,11 @@ def specs(Año:str):
     top_5_specs = specs_counts.head(5).index.tolist()
 
     # Convertir la lista de géneros en una cadena con saltos de línea
-    top_5_specs_str = '\n'.join(top_5_specs)
+    top_5_specs_str = ' '.join(top_5_specs)
     
     return top_5_specs_str
 
-@app.get('/')
+@app.get('/earltaccess')
 def earlyacces(Año:str):
     # Filtrar solo los registros correspondientes al año ingresado
     df_filtered = df[df['release_date'].dt.year == int(Año)]
@@ -85,7 +85,7 @@ def earlyacces(Año:str):
     
     return cantidad_early_access
 
-@app.get('/')
+@app.get('/sentiment')
 def sentiment(Año: str):
     # Filtrar solo los registros correspondientes al año ingresado
     df_filtered = df[df['release_date'].dt.year == int(Año)]
@@ -104,7 +104,7 @@ def sentiment(Año: str):
     
     return sentiment_dict
 
-@app.get('/')
+@app.get('/metascore')
 def metascore(Año: str):
     # Filtrar solo los registros correspondientes al año ingresado
     df_filtered = df[df['release_date'].dt.year == int(Año)]
