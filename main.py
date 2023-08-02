@@ -86,6 +86,9 @@ def earlyacces(Año:str):
     # Contar la cantidad de juegos con early access
     cantidad_early_access = df_filtered['early_access'].sum()
     
+    # Convertir el resultado a un tipo de dato nativo de Python (int)
+    cantidad_early_access = int(cantidad_early_access)
+    
     return cantidad_early_access
 
 @app.get('/sentiment')
