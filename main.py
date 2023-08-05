@@ -3,6 +3,7 @@ import ast
 import pandas as pd
 from pydantic import BaseModel
 import joblib
+from sklearn.metrics import mean_squared_error
 
 app = FastAPI()
 
@@ -135,16 +136,13 @@ def metascore(Año: str):
 # Cargar el modelo entrenado desde el archivo pickle
 model = joblib.load('modelo_entrenado.pkl')
 
-# Crear la aplicación FastAPI
-app = FastAPI()
-
 # Definir la clase de entrada para la API
 class Entrada(BaseModel):
     genero: str
     earlyaccess: bool
 
 # Definir la ruta para la predicción
-@app.get('/prediccion/')
+@app.get('/prediccion')
 def prediccion(genero: str, earlyaccess: bool):
     # Crear un DataFrame con los datos ingresados por el usuario
     datos_usuario = pd.DataFrame({
