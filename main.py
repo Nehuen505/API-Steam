@@ -142,6 +142,7 @@ class Entrada(BaseModel):
     earlyaccess: bool
 
 # Definir la ruta para la predicción
+@app.get('/prediccion')
 def prediccion(genero: str, earlyaccess: bool):
     # Crear un DataFrame con los datos ingresados por el usuario
     datos_usuario = pd.DataFrame({
