@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 import ast
 import pandas as pd
-
+from pydantic import BaseModel
+import joblib
 
 app = FastAPI()
 
@@ -128,3 +129,34 @@ def metascore(Año: str):
     juegos_y_metascore = [(nombre, puntaje) for nombre, puntaje in zip(top_5_games['title'], top_5_games['metascore'])]
     
     return juegos_y_metascore
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Cargar el modelo entrenado desde el archivo pickle
+model = joblib.load('modelo_entrenado.pkl')
+
+# Crear la aplicación FastAPI
+app = FastAPI()
+
+# Definir la clase de entrada para la API
+class Entrada(BaseModel):
+    genero: str
+    earlyaccess: bool
+
+# Definir la ruta para la predicción
+@app.get('/prediccion/')
+def prediccion(genero: str, earlyaccess: bool):
+    # Crear un DataFrame con los datos ingresados por el usuario
+    datos_usuario = pd.DataFrame({
+        'genre': [genero],
+        'early_access': [earlyaccess]
+    })
+
+    # Aplicar one-hot encoding al DataFrame
+    datos_usuario = pd.get_dummies(datos_usuario)
+
+    # Realizar la predicción utilizando el modelo
+    precio_prediccion = model.predict(datos_usuario)[0]
+
+    # Devolver el precio y el RMSE
+    return {'precio': precio_prediccion, 'rmse': rmse}
