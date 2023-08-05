@@ -142,7 +142,6 @@ class Entrada(BaseModel):
     earlyaccess: bool
 
 # Definir la ruta para la predicción
-@app.get('/prediccion')
 def prediccion(genero: str, earlyaccess: bool):
     # Crear un DataFrame con los datos ingresados por el usuario
     datos_usuario = pd.DataFrame({
@@ -152,6 +151,9 @@ def prediccion(genero: str, earlyaccess: bool):
 
     # Aplicar one-hot encoding al DataFrame
     datos_usuario = pd.get_dummies(datos_usuario)
+
+    # Reindexar el DataFrame para asegurarnos de tener las mismas columnas que el modelo
+    datos_usuario = datos_usuario.reindex(columns=model.named_steps['preprocessor'].get_feature_names_out(input_features=datos_usuario.columns))
 
     # Realizar la predicción utilizando el modelo
     precio_prediccion = model.predict(datos_usuario)[0]
