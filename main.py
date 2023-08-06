@@ -136,28 +136,3 @@ def metascore(Año: str):
 # Cargar el modelo entrenado desde el archivo pickle
 model = joblib.load('modelo_entrenado.pkl')
 
-# Definir la clase de entrada para la API
-class Entrada(BaseModel):
-    genero: str
-    earlyaccess: bool
-
-# Definir la ruta para la predicción
-@app.get('/prediccion')
-def prediccion(genero: str, earlyaccess: bool):
-    # Crear un DataFrame con los datos ingresados por el usuario
-    datos_usuario = pd.DataFrame({
-        'genre': [genero],
-        'early_access': [earlyaccess]
-    })
-
-    # Aplicar one-hot encoding al DataFrame
-    datos_usuario = pd.get_dummies(datos_usuario)
-
-    # Reindexar el DataFrame para asegurarnos de tener las mismas columnas que el modelo
-    datos_usuario = datos_usuario.reindex(columns=model.named_steps['preprocessor'].get_feature_names_out(input_features=datos_usuario.columns))
-
-    # Realizar la predicción utilizando el modelo
-    precio_prediccion = model.predict(datos_usuario)[0]
-
-    # Devolver el precio y el RMSE
-    return {'precio': precio_prediccion, 'rmse': rmse}
