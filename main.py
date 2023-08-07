@@ -145,12 +145,12 @@ poly = data['poly']
 X = data['X']
 
 @app.get('/prediccion')
-def predecir_precio_y_rmse(generos: str, early_access: bool):
+def predecir_precio_y_rmse(generos: str, early_access: int):
     # Crear un DataFrame con las características de los géneros a predecir
     generos_a_predecir_df = pd.DataFrame({genero: [1 if genero in generos.split(',') else 0] for genero in X.columns})
 
     # Agregar la columna 'early_access' al DataFrame con el valor proporcionado por el usuario
-    generos_a_predecir_df['early_access'] = int(early_access)
+    generos_a_predecir_df['early_access'] = early_access
 
     # Transformar las características de los géneros a predecir utilizando el mismo transformador polinomial
     generos_a_predecir_poly = poly.transform(generos_a_predecir_df)
@@ -165,3 +165,5 @@ def predecir_precio_y_rmse(generos: str, early_access: bool):
     rmse = np.sqrt(mse)
 
     return {"precio_predicho": round(precio_predicho, 2), "rmse": rmse}
+
+print(predecir_precio_y_rmse('Action', True))
