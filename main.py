@@ -5,6 +5,7 @@ from pydantic import BaseModel
 import joblib
 from sklearn.metrics import mean_squared_error
 import numpy as np
+import pickle
 
 
 app = FastAPI()
@@ -136,7 +137,8 @@ def metascore(Año: str):
 # ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Cargar los datos y el modelo desde el archivo pkl
-data = joblib.load('modelo_y_datos.pkl')
+with open('modelo_y_datos.pkl', 'rb') as file:
+    data = pickle.load(file)
 modelo_regresion = data['modelo']
 X_test_poly = data['X_test_poly']
 y_test = data['y_test']
