@@ -1,12 +1,11 @@
 from fastapi import FastAPI
 import ast
 import pandas as pd
-from pydantic import BaseModel
+
 import joblib
 from sklearn.metrics import mean_squared_error
 import numpy as np
 import pickle
-
 
 app = FastAPI()
 
@@ -136,15 +135,21 @@ def metascore(Año: str):
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
 # Cargar los datos y el modelo desde el archivo pkl
-with open('modelo_y_datos.pkl', 'rb') as file:
+with open('modelo.pkl', 'rb') as file:
     data = pickle.load(file)
+
 modelo_regresion = data['modelo']
 X_test_poly = data['X_test_poly']
 y_test = data['y_test']
 y_pred = data['y_pred']
 poly = data['poly']
 X = data['X']
+
+print(type(X))
+print(type(poly))
 
 @app.get('/prediccion')
 def predecir_precio_y_rmse(generos: str, early_access: int):
