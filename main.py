@@ -4,6 +4,8 @@ import pandas as pd
 from pydantic import BaseModel
 import joblib
 from sklearn.metrics import mean_squared_error
+import numpy as np
+
 
 app = FastAPI()
 
@@ -133,6 +135,33 @@ def metascore(Año: str):
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Cargar el modelo entrenado desde el archivo pickle
-model = joblib.load('modelo_entrenado.pkl')
+# Cargar los datos y el modelo desde el archivo pkl
+data = joblib.load('modelo_y_datos.pkl')
+modelo_regresion = data['modelo']
+X_test_poly = data['X_test_poly']
+y_test = data['y_test']
+y_pred = data['y_pred']
+poly = data['poly']
+X = data['X']
 
+@app.get('/prediccion')
+def predecir_precio_y_rmse(generos: str, early_access: bool):
+    # Crear un DataFrame con las características de los géneros a predecir
+    generos_a_predecir_df = pd.DataFrame({genero: [1 if genero in generos.split(',') else 0] for genero in X.columns})
+
+    # Agregar la columna 'early_access' al DataFrame con el valor proporcionado por el usuario
+    generos_a_predecir_df['early_access'] = int(early_access)
+
+    # Transformar las características de los géneros a predecir utilizando el mismo transformador polinomial
+    generos_a_predecir_poly = poly.transform(generos_a_predecir_df)
+
+    # Realizar la predicción utilizando el modelo cargado
+    precio_predicho = modelo_regresion.predict(generos_a_predecir_poly)[0]
+
+    # Calcular el Mean Squared Error (MSE)
+    mse = mean_squared_error(y_test, y_pred)
+
+    # Calcular el Root Mean Squared Error (RMSE)
+    rmse = np.sqrt(mse)
+
+    return {"precio_predicho": round(precio_predicho, 2), "rmse": rmse}
