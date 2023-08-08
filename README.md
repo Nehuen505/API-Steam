@@ -47,6 +47,14 @@ Basándonos en los resultados de nuestro análisis exploratorio, seleccioné las
 | ['Casual', 'Free to Play', 'Indie', 'Simulatio... | 0.99  | False        |
 | ['Action', 'Adventure', 'Simulation']             | 3.99  | False        |
 
+Luego, lo transformé a dummies para entrenar el modelo de predicción.
+
+| Indie | Action | Adventure | Price | early_access |
+|-------|--------|-----------|-------|--------------|
+| 1     | 0      | 1         | 4.99  | True         |
+| 0     | 1      | 0         | 0.00  | False        |
+| 0     | 0      | 0         | 0.99  | False        |
+| 1     | 1      | 1         | 3.99  | False        |
 
 Utilicé estas columnas para la construcción del modelo de ML.
 
