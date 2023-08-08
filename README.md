@@ -1,5 +1,5 @@
 # Proyecto de Limpieza de Datos, Análisis Exploratorio y Predicción de Precios de Steam
-
+![imagen](https://i.imgur.com/YRUXNhu.jpeg)
 ## Descripción
 
 Este proyecto tiene como objetivo realizar un análisis integral de un conjunto de datos de Steam, una plataforma de distribución digital de videojuegos. Comenzaremos con la limpieza y preparación de los datos para asegurarnos de que estén listos para su análisis. Luego, realizaremos un Análisis Exploratorio (EDA) para obtener una comprensión profunda de los patrones y características presentes en los datos. Finalmente, desarrollaremos un modelo de Machine Learning para predecir los precios de los videojuegos de Steam.
@@ -20,25 +20,28 @@ El conjunto de datos utilizado en este proyecto contiene información relevante 
 - Python: Se utilizará Python como lenguaje principal para la implementación de la limpieza de datos, EDA y el desarrollo del modelo de Machine Learning.
 - Bibliotecas de Python: Pandas, NumPy, Matplotlib y Scikit-learn serán algunas de las bibliotecas clave utilizadas en el proyecto.
 
+## Proceso:
+
 ## Limpieza
-En este caso decido eliminar valores duplicados como se ve en la tabla
+Eliminación de valores faltantes o duplicados.
 | Title                                            | Género              | Fecha de lanzamiento | Precio  |
 |--------------------------------------------------|---------------------|---------------------|---------|
 | Batman: Arkham City - Game of the Year Edition   | Action,Adventure    | 2012-09-07          | $19.99  |
 | The Dream Machine: Chapter 4                     | Adventure           | 2013-08-05          | $4.99   |
 | The Dream Machine: Chapter 4                     | Adventure           | 2013-08-05          | $4.99   |
 | Batman: Arkham City - Game of the Year Edition   | Action,Adventure    | 2012-09-07          | $19.99  |
+| NaN                                              | Indie               | 2017-12-07          | NaN     |
 
 ## EDA
 
 Durante el Análisis Exploratorio de Datos (EDA), realicé una investigación sobre las diferentes características de los videojuegos presentes en el conjunto de datos de Steam. Mi objetivo principal era identificar las columnas más relevantes y significativas para el desarrollo del modelo de Machine Learning para predecir los precios de los videojuegos.
-**Visualización de Distribuciones:** Utilicé un gráfico para comprender cómo se distribuyen los precios de los videojuegos en función de sus géneros
+ Utilicé un gráfico para comprender cómo se distribuyen los precios de los videojuegos en función de sus géneros.
 
 ![grafico](https://i.imgur.com/W9oQlOC.png)
 
 ### Características Seleccionadas para el Modelo
 
-Basándonos en los resultados de nuestro análisis exploratorio, seleccioné las siguientes columnas como características clave para mi modelo de Machine Learning:
+Basándome en los resultados del análisis exploratorio, seleccioné las siguientes columnas como características clave para el modelo de Machine Learning:
 
 | Genres                                         | Price | early_access |
 |-----------------------------------------------|-------|--------------|
@@ -47,7 +50,7 @@ Basándonos en los resultados de nuestro análisis exploratorio, seleccioné las
 | ['Casual', 'Free to Play', 'Indie', 'Simulatio... | 0.99  | False        |
 | ['Action', 'Adventure', 'Simulation']             | 3.99  | False        |
 
-Luego, lo transformé a dummies para entrenar el modelo de predicción.
+Luego, lo transformé a dummies.
 
 | Indie | Action | Adventure | Price | early_access |
 |-------|--------|-----------|-------|--------------|
@@ -55,8 +58,6 @@ Luego, lo transformé a dummies para entrenar el modelo de predicción.
 | 0     | 1      | 0         | 0.00  | False        |
 | 0     | 0      | 0         | 0.99  | False        |
 | 1     | 1      | 1         | 3.99  | False        |
-
-Utilicé estas columnas para la construcción del modelo de ML.
 
 ## Modelo de Predicción Polinomial y Resultados
 
@@ -68,7 +69,7 @@ Utilicé el conjunto de datos transformado para entrenar el modelo de Regresión
 
 ### Resultados del Modelo
 
-Una vez que entrenamos el modelo, realice predicciones sobre el conjunto de datos de prueba. Evaluamos el rendimiento del modelo utilizando el error cuadrático medio (RMSE) para medir la precisión de las predicciones.
+Una vez que entrenado el modelo, realicé predicciones sobre el conjunto de datos de prueba. Evalué el rendimiento del modelo utilizando el error cuadrático medio (RMSE) para medir la precisión de las predicciones.
 
 El modelo de predicción polinomial devolvió los siguientes resultados:
 
