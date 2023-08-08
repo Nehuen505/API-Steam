@@ -13,7 +13,6 @@ df = pd.read_csv('steam_games_limpio.csv', encoding='utf-8')
 async def startup_event():
     df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
     df.drop('Unnamed: 0', axis=1,inplace=True)
-    
     pass
 
 @app.get('/genero')
@@ -108,7 +107,7 @@ y_test = data['y_test']
 y_pred = data['y_pred']
 poly = data['poly']
 X = data['X']
-generos_permitidos = ['Accounting', 'Action', 'Adventure', 'Animation & Modeling',
+generos = ['Accounting', 'Action', 'Adventure', 'Animation & Modeling',
        'Audio Production', 'Casual', 'Design & Illustration', 'Early Access',
        'Education', 'Indie', 'Massively Multiplayer', 'Photo Editing', 'RPG',
        'Racing', 'Simulation', 'Software Training', 'Sports', 'Strategy',
@@ -116,17 +115,14 @@ generos_permitidos = ['Accounting', 'Action', 'Adventure', 'Animation & Modeling
 
 @app.get('/prediccion')
 def predecir_precio_y_rmse(generos: str, early_access: bool):
-    # Dividir los géneros ingresados en una lista
     generos_ingresados = generos.split(',')
     
-    # Verificar si los géneros ingresados están permitidos
-    generos_no_permitidos = [genero for genero in generos_ingresados if genero not in generos_permitidos]
+    generos_no_permitidos = [genero for genero in generos_ingresados if genero not in generos]
     
     if generos_no_permitidos:
-        # Si hay géneros no permitidos, devolver un mensaje con los géneros válidos
-        return {"message": f"Los siguientes géneros no están permitidos: {', '.join(generos_no_permitidos)}. Debes elegir entre los siguientes géneros: {', '.join(generos_permitidos)}."}
+        # Si hay géneros no permitidos, devolverá un mensaje de error
+        return {f"Los siguientes géneros no están permitidos: {', '.join(generos_no_permitidos)}. Debes elegir entre los siguientes géneros: {', '.join(generos)}."}
     else:
-        # Si todos los géneros ingresados están permitidos, proceder con la predicción
         generos_a_predecir_df = pd.DataFrame({genero: [1 if genero in generos_ingresados else 0] for genero in X.columns})
         generos_a_predecir_df['early_access'] = early_access
         generos_a_predecir_poly = poly.transform(generos_a_predecir_df)
