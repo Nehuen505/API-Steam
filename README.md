@@ -1,7 +1,7 @@
 # Proyecto de Limpieza de Datos, Análisis Exploratorio y Predicción de Precios de Steam
 
 ## Descripción
-
+hola :)
 Este proyecto tiene como objetivo realizar un análisis integral de un conjunto de datos de Steam, una plataforma de distribución digital de videojuegos. Comenzaremos con la limpieza y preparación de los datos para asegurarnos de que estén listos para su análisis. Luego, realizaremos un Análisis Exploratorio (EDA) para obtener una comprensión profunda de los patrones y características presentes en los datos. Finalmente, desarrollaremos un modelo de Machine Learning para predecir los precios de los videojuegos de Steam.
 
 ## Dataset
