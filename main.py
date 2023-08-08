@@ -171,6 +171,6 @@ def predecir_precio_y_rmse(generos: str, early_access: int):
     # Calcular el Root Mean Squared Error (RMSE)
     rmse = np.sqrt(mse)
 
-    return {"precio_predicho": round(precio_predicho, 2), "rmse": rmse}
+    return {"precio_predicho": round(precio_predicho, 2), "rmse": round(rmse, 2)}
 
 print(predecir_precio_y_rmse('Action', True))
