@@ -12,7 +12,6 @@ df = pd.read_csv('steam_games_limpio.csv', encoding='utf-8')
 @app.on_event("startup")
 async def startup_event():
     df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
-    
     df.drop('Unnamed: 0', axis=1,inplace=True)
     
     pass
@@ -100,7 +99,7 @@ def metascore(Año: str):
 # -----ML-----
 
 # Cargar los datos y el modelo desde el archivo pkl
-with open('modelo.pkl', 'rb') as file:
+with open('modelo_ml.pkl', 'rb') as file:
     data = pickle.load(file)
 
 modelo_regresion = data['modelo']
