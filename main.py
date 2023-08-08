@@ -108,10 +108,10 @@ y_pred = data['y_pred']
 poly = data['poly']
 X = data['X']
 generos_permitidos = ['Accounting', 'Action', 'Adventure', 'Animation & Modeling',
-                      'Audio Production', 'Casual', 'Design & Illustration',
-                      'Education', 'Indie', 'Massively Multiplayer', 'Photo Editing', 'RPG',
-                      'Racing', 'Simulation', 'Software Training', 'Sports', 'Strategy',
-                      'Utilities', 'Video Production', 'Web Publishing']
+       'Audio Production', 'Casual', 'Design & Illustration',
+       'Education', 'Indie', 'Massively Multiplayer', 'Photo Editing', 'RPG',
+       'Racing', 'Simulation', 'Software Training', 'Sports', 'Strategy',
+       'Utilities', 'Video Production', 'Web Publishing']
 
 @app.get('/prediccion')
 def predecir_precio_y_rmse(generos: str, early_access: bool):
