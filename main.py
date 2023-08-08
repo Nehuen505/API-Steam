@@ -108,19 +108,29 @@ y_test = data['y_test']
 y_pred = data['y_pred']
 poly = data['poly']
 X = data['X']
+generos_permitidos = ['Accounting', 'Action', 'Adventure', 'Animation & Modeling',
+       'Audio Production', 'Casual', 'Design & Illustration', 'Early Access',
+       'Education', 'Indie', 'Massively Multiplayer', 'Photo Editing', 'RPG',
+       'Racing', 'Simulation', 'Software Training', 'Sports', 'Strategy',
+       'Utilities', 'Video Production', 'Web Publishing']
 
 @app.get('/prediccion')
 def predecir_precio_y_rmse(generos: str, early_access: bool):
-    generos_a_predecir_df = pd.DataFrame({genero: [1 if genero in generos.split(',') else 0] for genero in X.columns})
-
-    generos_a_predecir_df['early_access'] = early_access
-
-    generos_a_predecir_poly = poly.transform(generos_a_predecir_df)
-
-    precio_predicho = modelo_regresion.predict(generos_a_predecir_poly)[0]
-
-    mse = mean_squared_error(y_test, y_pred)
+    # Dividir los géneros ingresados en una lista
+    generos_ingresados = generos.split(',')
     
-    rmse = np.sqrt(mse)
+    # Verificar si los géneros ingresados están permitidos
+    generos_no_permitidos = [genero for genero in generos_ingresados if genero not in generos_permitidos]
     
-    return {"precio_predicho": round(precio_predicho, 2), "rmse": round(rmse, 2)}
+    if generos_no_permitidos:
+        # Si hay géneros no permitidos, devolver un mensaje con los géneros válidos
+        return {"message": f"Los siguientes géneros no están permitidos: {', '.join(generos_no_permitidos)}. Debes elegir entre los siguientes géneros: {', '.join(generos_permitidos)}."}
+    else:
+        # Si todos los géneros ingresados están permitidos, proceder con la predicción
+        generos_a_predecir_df = pd.DataFrame({genero: [1 if genero in generos_ingresados else 0] for genero in X.columns})
+        generos_a_predecir_df['early_access'] = early_access
+        generos_a_predecir_poly = poly.transform(generos_a_predecir_df)
+        precio_predicho = modelo_regresion.predict(generos_a_predecir_poly)[0]
+        mse = mean_squared_error(y_test, y_pred)
+        rmse = np.sqrt(mse)
+        return {"Precio predicho": round(precio_predicho, 2), "RMSE": round(rmse, 2)}
