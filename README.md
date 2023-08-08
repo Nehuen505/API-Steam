@@ -98,4 +98,4 @@ git clone https://github.com/Nehuen505/PI-ML.git
 pip install -r requirements.txt
 ```
 
-3. Explora los notebooks en el orden deseado para seguir el flujo del proyecto.
+3. Explora los archivos en el orden deseado para seguir el flujo del proyecto.
