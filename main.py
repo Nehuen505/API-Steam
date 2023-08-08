@@ -107,21 +107,20 @@ y_test = data['y_test']
 y_pred = data['y_pred']
 poly = data['poly']
 X = data['X']
-generos = ['Accounting', 'Action', 'Adventure', 'Animation & Modeling',
-       'Audio Production', 'Casual', 'Design & Illustration', 'Early Access',
-       'Education', 'Indie', 'Massively Multiplayer', 'Photo Editing', 'RPG',
-       'Racing', 'Simulation', 'Software Training', 'Sports', 'Strategy',
-       'Utilities', 'Video Production', 'Web Publishing']
+generos_permitidos = ['Accounting', 'Action', 'Adventure', 'Animation & Modeling',
+                      'Audio Production', 'Casual', 'Design & Illustration',
+                      'Education', 'Indie', 'Massively Multiplayer', 'Photo Editing', 'RPG',
+                      'Racing', 'Simulation', 'Software Training', 'Sports', 'Strategy',
+                      'Utilities', 'Video Production', 'Web Publishing']
 
 @app.get('/prediccion')
 def predecir_precio_y_rmse(generos: str, early_access: bool):
     generos_ingresados = generos.split(',')
     
-    generos_no_permitidos = [genero for genero in generos_ingresados if genero not in generos]
+    generos_no_permitidos = [genero for genero in generos_ingresados if genero not in generos_permitidos]
     
     if generos_no_permitidos:
-        # Si hay géneros no permitidos, devolverá un mensaje de error
-        return f"Los siguientes géneros no están permitidos: {', '.join(generos_no_permitidos)}. Debes elegir entre los siguientes géneros: {', '.join(generos)}."
+        return {"message": f"Los siguientes géneros no están permitidos: {', '.join(generos_no_permitidos)}. Debes elegir entre los siguientes géneros: {', '.join(generos_permitidos)}."}
     else:
         generos_a_predecir_df = pd.DataFrame({genero: [1 if genero in generos_ingresados else 0] for genero in X.columns})
         generos_a_predecir_df['early_access'] = early_access
