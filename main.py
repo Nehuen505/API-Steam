@@ -121,7 +121,7 @@ def predecir_precio_y_rmse(generos: str, early_access: bool):
     
     if generos_no_permitidos:
         # Si hay géneros no permitidos, devolverá un mensaje de error
-        return {f"Los siguientes géneros no están permitidos: {', '.join(generos_no_permitidos)}. Debes elegir entre los siguientes géneros: {', '.join(generos)}."}
+        return f"Los siguientes géneros no están permitidos: {', '.join(generos_no_permitidos)}. Debes elegir entre los siguientes géneros: {', '.join(generos)}."
     else:
         generos_a_predecir_df = pd.DataFrame({genero: [1 if genero in generos_ingresados else 0] for genero in X.columns})
         generos_a_predecir_df['early_access'] = early_access
