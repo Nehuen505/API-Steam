@@ -13,6 +13,7 @@ df = pd.read_csv('steam_games_limpio.csv', encoding='utf-8')
 async def startup_event():
     df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
     df.drop('Unnamed: 0', axis=1,inplace=True)
+    
     pass
 
 @app.get('/genero')
