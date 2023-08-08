@@ -58,6 +58,31 @@ Luego, lo transformé a dummies para entrenar el modelo de predicción.
 
 Utilicé estas columnas para la construcción del modelo de ML.
 
+## Modelo de Predicción Polinomial y Resultados
+
+Después de seleccionar las características clave y transformar los datos a dummies, procedi a construir un modelo de predicción utilizando el algoritmo de Regresión Polinomial. Este modelo nos permite capturar relaciones no lineales entre las características y el precio de los videojuegos.
+
+### Entrenamiento del Modelo
+
+Utilicé el conjunto de datos transformado para entrenar el modelo de Regresión Polinomial. El objetivo del modelo era predecir el precio de los videojuegos en función del género.
+
+### Resultados del Modelo
+
+Una vez que entrenamos el modelo, realice predicciones sobre el conjunto de datos de prueba. Evaluamos el rendimiento del modelo utilizando el error cuadrático medio (RMSE) para medir la precisión de las predicciones.
+
+El modelo de predicción polinomial devolvió los siguientes resultados:
+
+- Precio predicho (y_pred): [5.63, 8.30, 10.12, 13.28]
+- Precio real (y_test): [4.99, 6.80, 6.98, 8.09]
+- Error Cuadrático Medio (RMSE): 13.99
+
+### Gráfico Comparativo
+
+A continuación, se muestra un gráfico comparativo entre los precios reales (y_test) y los precios predichos por el modelo (y_pred). Este gráfico nos permite visualizar cómo se comparan las predicciones con los valores reales y cómo de cerca está nuestro modelo de ajustarse a los datos.
+
+![grafico2](https://i.imgur.com/tfBLFNC.png)
+
+El gráfico muestra que las predicciones del modelo están relativamente cerca de los valores reales, lo que indica que el modelo ha sido capaz de capturar patrones y relaciones importantes en los datos.
 
 ## Instrucciones para Reproducir el Proyecto
 
